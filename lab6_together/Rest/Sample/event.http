@@ -1,6 +1,23 @@
 @host = localhost:7270
-GET https://{{host}}/api/add-event
+POST https://{{host}}/api/add-event
+Content-Type: application/json
+
+{
+    "name":"作菜",
+    "coordinator":"Mark Ho",
+    "place":"Taipei 101 6F",
+    "lat":20.42,
+    "lng":120.32,
+    "fee":500
+}
 
 ###
 
-GET https://{{host}}/api/query-event
+POST https://{{host}}/api/query-event
+Content-Type: application/json
+
+{
+    "lat":20.42,
+    "lng":130.254,
+    "length":0.5
+}
