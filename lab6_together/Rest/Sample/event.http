@@ -1,0 +1,6 @@
+@host = localhost:7270
+GET https://{{host}}/api/add-event
+
+###
+
+GET https://{{host}}/api/query-event
