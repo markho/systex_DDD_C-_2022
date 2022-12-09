@@ -29,8 +29,14 @@ public class EventController : ControllerBase
     [HttpPost("query-event")]
     public IActionResult QueryEvent(QueryEventRequest request)
     {
-        QueryEventResponse res = new QueryEventResponse("nane", "mark", "tpe", 20.4f, 121.3f, 1000);
-        QueryEventResponse[] events = new QueryEventResponse[] { res, res, res, res };
+        var result = eventService.query(request.lat, request.lng, request.length);
+        List<QueryEventResponse> events = new();
+        foreach (var r in result)
+        {
+            QueryEventResponse response = new QueryEventResponse(r.name, r.coordinator, r.place,
+            r.lat, r.lng, r.fee);
+            events.Add(response);
+        }
         return Ok(events);
     }
 
