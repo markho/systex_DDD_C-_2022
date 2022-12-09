@@ -10,12 +10,18 @@ public class EventController : ControllerBase
     [HttpPost("add-event")]
     public IActionResult AddEvent(AddEventRequest request)
     {
-        return Ok(request);
+        AddEventResponse response = new AddEventResponse(
+            Guid.NewGuid(), request.name, request.coordinator,
+            request.place, request.lat, request.lng, request.fee
+        );
+        return Ok(response);
     }
     [HttpPost("query-event")]
     public IActionResult QueryEvent(QueryEventRequest request)
     {
-        return Ok(request);
+        QueryEventResponse res = new QueryEventResponse("nane", "mark", "tpe", 20.4f, 121.3f, 1000);
+        QueryEventResponse[] events = new QueryEventResponse[] { res, res, res, res };
+        return Ok(events);
     }
 
 }
