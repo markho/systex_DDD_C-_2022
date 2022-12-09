@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Together.Application.Services;
 using Together.Contract.Controller;
 
 namespace Together.Api.Controllers;
@@ -7,12 +8,21 @@ namespace Together.Api.Controllers;
 [Route("api")]
 public class EventController : ControllerBase
 {
+    private readonly IEventService eventService;
+
+    public EventController(IEventService eventService)
+    {
+        this.eventService = eventService;
+    }
+
     [HttpPost("add-event")]
     public IActionResult AddEvent(AddEventRequest request)
     {
+        var result = eventService.add(request.name, request.coordinator, request.place, request.lat,
+        request.lng, request.fee);
         AddEventResponse response = new AddEventResponse(
-            Guid.NewGuid(), request.name, request.coordinator,
-            request.place, request.lat, request.lng, request.fee
+            result.Id, result.name, result.coordinator,
+            result.place, result.lat, result.lng, result.fee
         );
         return Ok(response);
     }
